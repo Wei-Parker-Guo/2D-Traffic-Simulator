@@ -1,15 +1,39 @@
 package TrafficSim;
 
+import java.util.Arrays;
+
 // class representing a simulated car
 public class Car {
 
     //attributes
     public int[] position;
-    private String id;
-    private int length = 2;
-    private int width = 1;
-    private int speed;
+    public String id;
+    public int length = 2; //default length is 2
+    public int width;
+    private int speed = 1;
+    private int acceleration = 1;
     private Object currentTerrain;
+
+    //constructors
+    public Car(int id, int length){
+        this.id = "Car" + String.valueOf(id);
+        this.length = length;
+        this.width = this.length/2;
+    }
+
+    //to string
+    @Override
+    public String toString() {
+        return "Car{" +
+                "position=" + Arrays.toString(position) +
+                ", id='" + id + '\'' +
+                ", length=" + length +
+                ", width=" + width +
+                ", speed=" + speed +
+                ", acceleration=" + acceleration +
+                ", currentTerrain=" + currentTerrain +
+                '}';
+    }
 
     //methods
 
