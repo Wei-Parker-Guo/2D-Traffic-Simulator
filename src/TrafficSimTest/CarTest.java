@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class CarTest {
-
     @Test
     public void test_constr(){
         Car new_car = new Car(1, 2);
