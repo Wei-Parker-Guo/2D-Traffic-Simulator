@@ -1,5 +1,7 @@
 package TrafficSim;
 
+import GUI.Menu;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,6 +14,7 @@ public class Main {
     private boolean paused = false;
     private boolean stopped = false;
     private ScheduledExecutorService e = Executors.newSingleThreadScheduledExecutor();
+    private Menu menu;
 
     //entry point
     public static void main(String[] args) {
@@ -22,6 +25,8 @@ public class Main {
 
     //initiation
     public void initiate(){
+        menu = new Menu();
+        menu.construct();
         change_update_rate(update_rate);
     }
 
