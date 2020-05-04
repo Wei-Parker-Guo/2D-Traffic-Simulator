@@ -54,6 +54,7 @@ public class Menu extends JFrame implements ActionListener{
         //tool bar
         JLabel title_label = new JLabel("Traffic Simulator");
         title_label.setFont(FONT.TITLE);
+        title_label.setBackground(COLOR.ideal_dark);
         title_label.setForeground(Color.white);
         title_label.setHorizontalAlignment(JLabel.CENTER);
         title_label.setVerticalAlignment(JLabel.CENTER);

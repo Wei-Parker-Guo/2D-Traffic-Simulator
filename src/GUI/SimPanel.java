@@ -12,6 +12,7 @@ public class SimPanel extends JPanel implements ActionListener {
         //configure layout
         setLayout(new BorderLayout());
         JPanel bottom_panel = new JPanel(new GridLayout(1,0));
+        bottom_panel.setBackground(COLOR.totally_transparent);
         setBackground(COLOR.totally_transparent);
 
         //play button
