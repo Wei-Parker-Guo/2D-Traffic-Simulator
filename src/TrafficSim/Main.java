@@ -27,7 +27,6 @@ public class Main {
     public void initiate(){
         menu = new Menu();
         menu.construct();
-        change_update_rate(update_rate);
     }
 
     //update loop
@@ -47,7 +46,7 @@ public class Main {
     }
 
     //method to change update cycle rate
-    public void change_update_rate(int rate){
+    public void change_update_rate_and_run(int rate){
         update_rate = rate;
         //set up a scheduler to determine update frequency
         e.scheduleAtFixedRate(new Runnable() {

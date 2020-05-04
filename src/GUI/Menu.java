@@ -7,76 +7,29 @@ import java.awt.event.ActionListener;
 
 //class representing menu entry point of the simulator
 public class Menu extends JFrame implements ActionListener{
-    //default button style
-    static class default_button extends JButton{
-        private Color hoverBackgroundColor = COLOR.ideal_dark_highlight;
-        private Color pressedBackgroundColor = Color.cyan.darker();
-
-        public default_button() {
-            this(null);
-        }
-
-        public default_button(String text) {
-            super(text);
-            super.setContentAreaFilled(false);
-            setFocusPainted(false);
-            setBorder(null);
-            setOpaque(false);
-            setBorderPainted(false);
-            setFont(FONT.NORMAL_TEXT);
-            setBackground(COLOR.ideal_dark);
-            setForeground(Color.WHITE);
-            setHoverBackgroundColor(hoverBackgroundColor);
-            setPressedBackgroundColor(pressedBackgroundColor);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            if (getModel().isPressed()) {
-                g.setColor(pressedBackgroundColor);
-            } else if (getModel().isRollover()) {
-                g.setColor(hoverBackgroundColor);
-            } else {
-                g.setColor(getBackground());
-            }
-            g.fillRect(0, 0, getWidth(), getHeight());
-            super.paintComponent(g);
-        }
-
-        @Override
-        public void setContentAreaFilled(boolean b) {
-        }
-
-        public Color getHoverBackgroundColor() {
-            return hoverBackgroundColor;
-        }
-
-        public void setHoverBackgroundColor(Color hoverBackgroundColor) {
-            this.hoverBackgroundColor = hoverBackgroundColor;
-        }
-
-        public Color getPressedBackgroundColor() {
-            return pressedBackgroundColor;
-        }
-
-        public void setPressedBackgroundColor(Color pressedBackgroundColor) {
-            this.pressedBackgroundColor = pressedBackgroundColor;
-        }
-    }
 
 
     //attributes
     private JFrame menu_frame;
     private int mode = 0; //mode: 0 - editing; 1 - simulating
+    private JPanel map_panel;
+    private SimPanel sim_panel = new SimPanel();
+    private EditPanel edit_panel = new EditPanel();
     private JButton edit_button;
     private JButton sim_button;
 
-    //entry point
+    //UI construction entry point
     public void construct(){
         //setting up a fullscreen frame
         menu_frame = new JFrame("Traffic Simulator Menu");
         menu_frame.setUndecorated(true);
         menu_frame.setBackground(COLOR.totally_transparent);
+
+        //setting up sim UI
+        sim_panel.construct();
+
+        //setting up edit UI
+        edit_panel.construct();
 
         //setting up static elements
         JPanel main_panel = new JPanel();
@@ -92,10 +45,13 @@ public class Menu extends JFrame implements ActionListener{
         JPanel placeholder = new JPanel();
         placeholder.setBackground(COLOR.totally_transparent);
 
-        JPanel map_panel = new JPanel();
-        map_panel.setBackground(COLOR.twenty_transparent);
+        map_panel = new JPanel(new BorderLayout());
+        map_panel.setBackground(COLOR.totally_transparent);
+        map_panel.add(edit_panel);
         main_panel.add(map_panel, BorderLayout.CENTER);
 
+
+        //tool bar
         JLabel title_label = new JLabel("Traffic Simulator");
         title_label.setFont(FONT.TITLE);
         title_label.setForeground(Color.white);
@@ -169,11 +125,19 @@ public class Menu extends JFrame implements ActionListener{
                 mode = 0;
                 edit_button.setBackground(Color.orange);
                 sim_button.setBackground(COLOR.ideal_dark);
+                map_panel.removeAll();
+                map_panel.add(edit_panel);
+                menu_frame.revalidate();
+                menu_frame.repaint();
                 break;
             case "sim":
                 mode = 1;
                 sim_button.setBackground(Color.orange);
                 edit_button.setBackground(COLOR.ideal_dark);
+                map_panel.removeAll();
+                map_panel.add(sim_panel);
+                menu_frame.revalidate();
+                menu_frame.repaint();
                 break;
         }
     }
