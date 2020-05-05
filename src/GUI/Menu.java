@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 //class representing menu entry point of the simulator
 public class Menu extends JFrame implements ActionListener{
 
-
     //attributes
     private JFrame menu_frame;
     private int mode = 0; //mode: 0 - editing; 1 - simulating

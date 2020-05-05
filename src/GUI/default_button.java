@@ -58,4 +58,10 @@ public class default_button extends JButton {
     public void setPressedBackgroundColor(Color pressedBackgroundColor) {
         this.pressedBackgroundColor = pressedBackgroundColor;
     }
+
+    //static method to toggle one button to specific color and the others dark
+    public static void toggle_buttons(JButton button, Color color, JButton... others){
+        button.setBackground(color);
+        for(JButton b : others) b.setBackground(COLOR.ideal_dark);
+    }
 }
