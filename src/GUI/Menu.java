@@ -1,9 +1,13 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileSystemView;
+import javax.tools.JavaFileManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 //class representing menu entry point of the simulator
 public class Menu extends JFrame implements ActionListener{
@@ -16,6 +20,7 @@ public class Menu extends JFrame implements ActionListener{
     private EditPanel edit_panel = new EditPanel();
     private JButton edit_button;
     private JButton sim_button;
+    private FileChooserFrame open_frame = new FileChooserFrame();
 
     //UI construction entry point
     public void construct(){
@@ -138,6 +143,12 @@ public class Menu extends JFrame implements ActionListener{
                 map_panel.add(sim_panel);
                 menu_frame.revalidate();
                 menu_frame.repaint();
+                break;
+            case "open":
+                File target;
+
+                int success = open_frame.construct();
+                if(success == 0) target = open_frame.selected_file; //read in file only if no error reported
                 break;
         }
     }
