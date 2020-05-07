@@ -14,7 +14,9 @@ public class Canvas extends JPanel {
     private int[] mouse_loc = {0,0};
     private boolean mouse_inside = false;
     private boolean mouse_pressed = false;
+    private int mouse_button = -1; // -1: released 0: right pressed 1: left pressed
     private ArrayList<Point> pressed_points = new ArrayList<>();
+    public Color cursor_color = Color.orange;
 
     public Canvas(){
         super();
@@ -28,11 +30,14 @@ public class Canvas extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 mouse_pressed = true;
+                if(SwingUtilities.isLeftMouseButton(e)) mouse_button = 0;
+                else if(SwingUtilities.isRightMouseButton(e)) mouse_button = 1;
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 mouse_pressed = false;
+                mouse_button = -1;
             }
 
             @Override
@@ -51,11 +56,11 @@ public class Canvas extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         construct(g);
-        update_mouse_activity(g);
         for(Point p : pressed_points){
             g.setColor(Color.orange);
             g.fillRect(p.x + 1, p.y + 1, 18, 18);
         }
+        update_mouse_activity(g);
     }
 
     //initiate interface
@@ -87,12 +92,18 @@ public class Canvas extends JPanel {
 
             }
 
-            g.setColor(Color.orange);
+            //configure cursor
+            if(mouse_button==1) cursor_color = Color.red;
+            else if(mouse_button==0) cursor_color = Color.green;
+            else cursor_color = Color.orange;
+            g.setColor(cursor_color);
             g.fillRect(mouse_loc[0]+1,mouse_loc[1]+1,18,18);
 
+            //perform tasks
             if(mouse_pressed){
                 Point new_point = new Point(mouse_loc[0], mouse_loc[1]);
-                pressed_points.add(new_point);
+                if(mouse_button==0 && !pressed_points.contains(new_point)) pressed_points.add(new_point); //left click adds
+                else if(mouse_button==1) pressed_points.remove(new_point); //right click removes
             }
         }
 
