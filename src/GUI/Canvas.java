@@ -40,8 +40,10 @@ public class Canvas extends JPanel {
                     mouse_pressed = true;
                     if (SwingUtilities.isLeftMouseButton(e)) mouse_button = 0;
                     else if (SwingUtilities.isRightMouseButton(e)) mouse_button = 1;
-                    prev_placed_point = new Point(getMousePosition().x/20*20, getMousePosition().y/20*20);
-                    pressed_points.add(prev_placed_point);
+                    if(mouse_button==0) {
+                        prev_placed_point = new Point(getMousePosition().x / 20 * 20, getMousePosition().y / 20 * 20);
+                        pressed_points.add(prev_placed_point);
+                    }
                 }
 
                 @Override
