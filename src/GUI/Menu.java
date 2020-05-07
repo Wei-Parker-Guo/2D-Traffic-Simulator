@@ -138,7 +138,6 @@ public class Menu extends JFrame implements ActionListener{
                 edit_button.setBackground(COLOR.ideal_dark);
                 map_panel.removeAll();
                 map_panel.add(sim_panel);
-                sim_panel.draw_city();
                 menu_frame.revalidate();
                 menu_frame.repaint();
                 break;

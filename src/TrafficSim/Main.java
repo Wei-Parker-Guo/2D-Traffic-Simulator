@@ -56,7 +56,7 @@ public class Main {
 
         //sim mode
         else if(menu.mode==1){
-
+            menu.sim_panel.canvas.repaint();
         }
 
         //end cycle verbose

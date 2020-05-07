@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class SimPanel extends JPanel implements ActionListener {
 
     private JPanel content_panel;
-    private Canvas canvas = new Canvas();
+    public Canvas canvas = new Canvas();
 
     //UI constructor
     public void construct(){
@@ -41,18 +41,15 @@ public class SimPanel extends JPanel implements ActionListener {
 
         //content panel
         content_panel = new JPanel(new BorderLayout());
-        content_panel.setBackground(COLOR.twenty_transparent);
+        content_panel.setOpaque(false);
+
+        //canvas
+        canvas.mode = 1;
+        content_panel.add(canvas);
 
         //add to main panel
         add(content_panel, BorderLayout.CENTER);
         add(bottom_panel, BorderLayout.PAGE_END);
-    }
-
-    //method to draw existent city
-    public void draw_city(){
-
-        //add everything to content panel
-        content_panel.add(canvas);
     }
 
     @Override
