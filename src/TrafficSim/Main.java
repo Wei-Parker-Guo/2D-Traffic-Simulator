@@ -2,6 +2,7 @@ package TrafficSim;
 
 import GUI.Menu;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,14 @@ public class Main {
     private ScheduledExecutorService e = Executors.newSingleThreadScheduledExecutor();
     private Menu menu;
 
+    //city attributes
+    private ArrayList<Road> roads;
+    private ArrayList<Intersection> intersections;
+    private ArrayList<TrafficLight> traffic_lights;
+    private ArrayList<Car> cars;
+    private ArrayList<Bus> buses;
+    private ArrayList<Motorbike> motor_bikes;
+
     //entry point
     public static void main(String[] args) {
         Main sim = new Main();
@@ -27,6 +36,7 @@ public class Main {
     public void initiate(){
         menu = new Menu();
         menu.construct();
+        change_update_rate_and_run(update_rate);
     }
 
     //update loop
@@ -37,6 +47,16 @@ public class Main {
         //start cycle verbose
         if (verbose){
             System.out.println("Update Cycle Started");
+        }
+
+        //edit mode
+        if(menu.mode==0) {
+            menu.edit_panel.canvas.repaint();
+        }
+
+        //sim mode
+        else if(menu.mode==1){
+
         }
 
         //end cycle verbose

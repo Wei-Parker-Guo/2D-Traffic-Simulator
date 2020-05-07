@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 public class SimPanel extends JPanel implements ActionListener {
 
+    private JPanel content_panel;
+    private Canvas canvas = new Canvas();
+
     //UI constructor
     public void construct(){
         //configure layout
@@ -37,12 +40,19 @@ public class SimPanel extends JPanel implements ActionListener {
         bottom_panel.add(stop_button);
 
         //content panel
-        JPanel content_panel = new JPanel();
+        content_panel = new JPanel(new BorderLayout());
         content_panel.setBackground(COLOR.twenty_transparent);
 
         //add to main panel
         add(content_panel, BorderLayout.CENTER);
         add(bottom_panel, BorderLayout.PAGE_END);
+    }
+
+    //method to draw existent city
+    public void draw_city(){
+
+        //add everything to content panel
+        content_panel.add(canvas);
     }
 
     @Override

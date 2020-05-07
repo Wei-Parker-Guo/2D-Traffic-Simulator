@@ -1,9 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileSystemView;
-import javax.tools.JavaFileManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,10 +11,10 @@ public class Menu extends JFrame implements ActionListener{
 
     //attributes
     private JFrame menu_frame;
-    private int mode = 0; //mode: 0 - editing; 1 - simulating
+    public int mode = 0; //mode: 0 - editing; 1 - simulating
     private JPanel map_panel;
-    private SimPanel sim_panel = new SimPanel();
-    private EditPanel edit_panel = new EditPanel();
+    public SimPanel sim_panel = new SimPanel();
+    public EditPanel edit_panel = new EditPanel();
     private JButton edit_button;
     private JButton sim_button;
     private FileChooserFrame open_frame = new FileChooserFrame();
@@ -141,6 +138,7 @@ public class Menu extends JFrame implements ActionListener{
                 edit_button.setBackground(COLOR.ideal_dark);
                 map_panel.removeAll();
                 map_panel.add(sim_panel);
+                sim_panel.draw_city();
                 menu_frame.revalidate();
                 menu_frame.repaint();
                 break;

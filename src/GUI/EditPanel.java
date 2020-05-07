@@ -18,6 +18,9 @@ public class EditPanel extends JPanel implements ActionListener {
     private default_button T_button;
     private default_button cross_button;
 
+    //canvas
+    public Canvas canvas = new Canvas();
+
     public void construct(){
         //edit layout
         setLayout(new BorderLayout());
@@ -88,10 +91,11 @@ public class EditPanel extends JPanel implements ActionListener {
 
 
         //content panel
-        JPanel content_panel = new JPanel();
-        content_panel.setBackground(COLOR.twenty_transparent);
+        JPanel content_panel = new JPanel(new BorderLayout());
+        content_panel.setOpaque(false);
 
         //add all components to main
+        content_panel.add(canvas);
         add(content_panel, BorderLayout.CENTER);
         add(line_end_panel, BorderLayout.LINE_END);
     }
