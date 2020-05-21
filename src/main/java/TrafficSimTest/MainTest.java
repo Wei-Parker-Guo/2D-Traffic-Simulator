@@ -23,7 +23,7 @@ public class MainTest {
     }
 
     @Test
-    public void test_update(){
+    public void test_update() {
         Assert.assertNotNull(new_sim);
         new_sim.verbose = true;
         new_sim.update();

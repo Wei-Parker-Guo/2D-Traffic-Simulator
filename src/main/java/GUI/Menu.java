@@ -147,6 +147,7 @@ public class Menu extends JFrame implements ActionListener{
                 menu_frame.revalidate();
                 menu_frame.repaint();
                 break;
+
             case "open":
                 File load_target = null;
                 open_frame.read_only = true;
@@ -162,28 +163,27 @@ public class Menu extends JFrame implements ActionListener{
                         //read direction
                         Point direction = new Point();
                         JSONArray dir = (JSONArray) root.get(i);
-                        direction.x = Integer.valueOf(dir.get(0).toString());
-                        direction.y = Integer.valueOf(dir.get(1).toString());
+                        direction.x = Integer.parseInt(dir.get(0).toString());
+                        direction.y = Integer.parseInt(dir.get(1).toString());
                         //read road blocks
                         JSONArray road = (JSONArray) root.get(i+1);
                         ArrayList<Point> road_blocks = new ArrayList<>();
                         for(int j=0; j<road.size(); j+=2){
                             Point block = new Point();
-                            block.x = Integer.valueOf(road.get(j).toString());
-                            block.y = Integer.valueOf(road.get(j+1).toString());
+                            block.x = Integer.parseInt(road.get(j).toString());
+                            block.y = Integer.parseInt(road.get(j+1).toString());
                             road_blocks.add(block);
                         }
                         //dump into hashtable, both sim and edit
                         read_roads.put(road_blocks,direction);
+                        ArrayList<Point> empty = new ArrayList<>();
+                        read_roads.remove(empty);
                         edit_panel.canvas.saved_roads = read_roads;
                         sim_panel.canvas.saved_roads = read_roads;
+                        sim_panel.road_to_map();
                     }
-                } catch (FileNotFoundException fileNotFoundException) {
+                } catch (IOException | ParseException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
                 }
 
                 break;

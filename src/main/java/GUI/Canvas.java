@@ -1,6 +1,7 @@
 package GUI;
 
 import TrafficSim.Car;
+import TrafficSim.Road;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,7 @@ public class Canvas extends JPanel {
     public Color cursor_color = Color.orange;
     public int mode = 0; //0: edit mode 1: sim mode
     public Hashtable<ArrayList<Point>,Point> saved_roads = new Hashtable<>(); //a hash table to store directions and roads
+    public ArrayList<Car> cars = new ArrayList<>();
 
     public Canvas(){
         super();
@@ -88,10 +90,17 @@ public class Canvas extends JPanel {
         }
 
         //only perform these activities when in sim mode
-        else if(mode==1){
+        else if(mode==1) {
             g.setColor(Color.orange);
-            for (ArrayList<Point> road_points : saved_roads.keySet()){
+            for (ArrayList<Point> road_points : saved_roads.keySet()) {
                 for (Point p : road_points) g.fillRect(p.x + 1, p.y + 1, 18, 18);
+            }
+
+            //draw cars
+            g.setColor(Color.cyan);
+            for (Car car : cars) {
+                Point pos = car.position;
+                g.fillRect(pos.x + 1, pos.y + 1, 18, 18);
             }
         }
     }

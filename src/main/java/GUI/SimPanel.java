@@ -1,14 +1,24 @@
 package GUI;
 
+import TrafficSim.Block;
+import TrafficSim.Road;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class SimPanel extends JPanel implements ActionListener {
 
     private JPanel content_panel;
+    public String status = "stop";
     public Canvas canvas = new Canvas();
+
+    //city attributes
+    public Hashtable<Point, Block> map = new Hashtable<>(); //map of the road structure
+    public Hashtable<Point, Road> road_map = new Hashtable<>(); //map of road used to spawn cars
 
     //UI constructor
     public void construct(){
@@ -58,11 +68,28 @@ public class SimPanel extends JPanel implements ActionListener {
 
         switch(cmd){
             case "play":
+                status = "play";
                 break;
             case "pause":
                 break;
             case "stop":
+                status = "stop";
                 break;
+        }
+    }
+
+    //method to get road blocks to map
+    public void road_to_map(){
+        for(ArrayList<Point> road : canvas.saved_roads.keySet()){
+            Point direction = canvas.saved_roads.get(road);
+            for(Point pos : road) {
+                Road new_road = new Road(direction,pos,3);
+
+                //add to road_map
+                road_map.put(pos, new_road);
+                //add to map
+                map.put(pos, new_road);
+            }
         }
     }
 }
